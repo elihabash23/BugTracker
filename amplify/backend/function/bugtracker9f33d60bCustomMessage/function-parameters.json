@@ -1,0 +1,24 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "bugtracker9f33d60b",
+  "functionName": "bugtracker9f33d60bCustomMessage",
+  "resourceName": "bugtracker9f33d60bCustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "roleName": "bugtracker9f33d60bCustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://www.google.com",
+  "EMAILSUBJECT": "Confirmation",
+  "EMAILMESSAGE": "Confirm...",
+  "RESOURCENAME": "resourceName"
+}
