@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-bugtracker-dev-154807-authRole",
+            "UnauthRoleArn": "arn:aws:iam::785555112297:role/amplify-bugtracker-dev-154807-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::785555112297:role/amplify-bugtracker-dev-154807-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-bugtracker-dev-154807-deployment",
+            "UnauthRoleName": "amplify-bugtracker-dev-154807-unauthRole",
+            "StackName": "amplify-bugtracker-dev-154807",
+            "StackId": "arn:aws:cloudformation:us-west-2:785555112297:stack/amplify-bugtracker-dev-154807/67dde190-d5db-11ea-8ea5-0a8b7f3d9ee0",
+            "AmplifyAppId": "drzoszrmzo66y"
+        }
+    }
+}
