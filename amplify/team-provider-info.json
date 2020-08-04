@@ -10,6 +10,18 @@
             "StackName": "amplify-bugtracker-dev-154807",
             "StackId": "arn:aws:cloudformation:us-west-2:785555112297:stack/amplify-bugtracker-dev-154807/67dde190-d5db-11ea-8ea5-0a8b7f3d9ee0",
             "AmplifyAppId": "drzoszrmzo66y"
+        },
+        "categories": {
+            "function": {
+                "bugtracker9f33d60bCustomMessage": {
+                    "REDIRECTURL": "https://www.google.com",
+                    "EMAILSUBJECT": "Confirmation",
+                    "EMAILMESSAGE": "Confirm..."
+                }
+            },
+            "auth": {
+                "bugtracker9f33d60b": {}
+            }
         }
     }
 }
