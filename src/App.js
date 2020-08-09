@@ -1,31 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 import Auth from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { withAuthenticator } from 'aws-amplify-react';
+import { Authenticator } from 'aws-amplify-react';
+import InternalApp from './components/InternalApp/InternalApp';
+//import { withAuthenticator } from 'aws-amplify-react';
 
 Auth.configure(awsconfig);
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          BugTracker App
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Authenticator hideDefault={false} amplifyConfig={awsconfig}>
+            <InternalApp authState={this.props.authState} onStateChange={this.props.onStateChange} />
+          </Authenticator>
+        </header>
+      </div>
+    );
+  }
+
 }
 
-export default withAuthenticator(App, {includeGreetings: true});
+export default App;
+//export default withAuthenticator(App, {includeGreetings: true});
