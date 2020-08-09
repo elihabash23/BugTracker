@@ -8,12 +8,16 @@ import InternalApp from './components/InternalApp/InternalApp';
 
 Auth.configure(awsconfig);
 class App extends Component {
-
   render() {
+    
+    const myTheme = {
+      button: { backgroundColor: "green", borderColor: "red" }
+    }
+
     return (
       <div className="App">
         <header className="App-header">
-          <Authenticator hideDefault={false} amplifyConfig={awsconfig}>
+          <Authenticator hideDefault={false} amplifyConfig={awsconfig} theme={myTheme}>
             <InternalApp authState={this.props.authState} onStateChange={this.props.onStateChange} />
           </Authenticator>
         </header>
