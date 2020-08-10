@@ -3,7 +3,7 @@ import './App.css';
 import Auth from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { Authenticator } from 'aws-amplify-react';
-import InternalApp from './components/InternalApp/InternalApp';
+import InternalApp from './components/authentication/InternalApp/InternalApp';
 //import { withAuthenticator } from 'aws-amplify-react';
 
 Auth.configure(awsconfig);
