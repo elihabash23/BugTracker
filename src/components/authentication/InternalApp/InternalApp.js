@@ -1,26 +1,18 @@
 import React, { Component } from 'react'
-import { Auth } from 'aws-amplify';
+import BugTable from '../../BugTable/BugTable';
+import classes from './InternalApp.module.css';
 import logo from '../../../logo.svg';
 
 class InternalApp extends Component {
-
-	handleSignOut = (e) => {
-		e.preventDefault();
-		Auth.signOut();
-	}
-
 	render() {
-		if (this.props.authState === 'signedIn') {
+		if (this.props.authState === "signedIn") {
 			return (
 				<div>
-					<img src={logo} className='App-logo' alt='logo' />
-					<p>Internal Application begind login</p>
-					<button 
-						type="submit"
-						onClick={this.handleSignOut}
-					>
-						Sign Out
-					</button>
+					<img className={classes.App_logo} src={logo} alt="logo" />
+					<p>
+						BugTracker App
+					</p>
+					<BugTable />
 				</div>
 			)
 		} else {

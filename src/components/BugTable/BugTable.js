@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import classes from './BugTable.module.css';
 
 class BugTable extends Component {
 	render() {
 		return (
 			<div>
 				<h3>Bug Table Component</h3>
-				<table>
+				<table className={classes.center}>
 					<tbody>
 						<tr>
 							<th>

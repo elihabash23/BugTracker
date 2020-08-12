@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Auth from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { Authenticator } from 'aws-amplify-react';
+import { Authenticator} from 'aws-amplify-react';
 import InternalApp from './components/authentication/InternalApp/InternalApp';
 //import { withAuthenticator } from 'aws-amplify-react';
 
@@ -11,15 +11,18 @@ class App extends Component {
   render() {
     
     const myTheme = {
-      button: { backgroundColor: "green", borderColor: "red" }
+      button: { backgroundColor: "green", borderColor: "red" },
+      signOutButtonIcon: {backgroundColor: "blue"}
     }
 
     return (
-      <div className="App">
+      <div>
         <header className="App-header">
-          <Authenticator hideDefault={false} amplifyConfig={awsconfig} theme={myTheme}>
-            <InternalApp authState={this.props.authState} onStateChange={this.props.onStateChange} />
-          </Authenticator>
+          <div className="center">
+            <Authenticator hideDefault={false} amplifyConfig={awsconfig} theme={myTheme}>
+              <InternalApp authState={this.props.authState} onStateChange={this.props.onStateChange} />
+            </Authenticator>
+          </div>
         </header>
       </div>
     );
