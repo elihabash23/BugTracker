@@ -44,3 +44,7 @@ div {
 .center {
   text-align: center;
 }
+
+amplify-sign-out {
+  width: 10px;
+}

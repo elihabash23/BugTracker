@@ -5,7 +5,7 @@ import logo from '../../../logo.svg';
 
 class InternalApp extends Component {
 	render() {
-		if (this.props.authState === "signedIn") {
+		// if (this.props.authState === "signedIn") {
 			return (
 				<div>
 					<img className={classes.App_logo} src={logo} alt="logo" />
@@ -15,9 +15,9 @@ class InternalApp extends Component {
 					<BugTable />
 				</div>
 			)
-		} else {
-			return null;
-		}
+		// } else {
+		// 	return null;
+		// }
 	}
 }
 
