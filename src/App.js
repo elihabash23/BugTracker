@@ -2,38 +2,43 @@ import React, { Component } from 'react';
 import './App.css';
 import Auth from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { Authenticator} from 'aws-amplify-react';
 import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 import InternalApp from './components/authentication/InternalApp/InternalApp';
-//import { withAuthenticator } from 'aws-amplify-react';
+import NavigationBar from './components/NavigationBar/NavigationBar';
+import Footer from './components/Footer/Footer';
+import AddBug from './components/AddBug/AddBug';
+import BugTable from './components/BugTable/BugTable';
 
 Auth.configure(awsconfig);
 class App extends Component {
+
   render() {
-    
-    // const myTheme = {
-    //   button: { backgroundColor: "green", borderColor: "red" },
-    //   signOutButtonIcon: {backgroundColor: "blue"}
-    // }
+
+    const marginTop = {
+      marginTop: "20px"
+    }
 
     return (
-      // <div>
-      //   <header className="App-header">
-      //     <div className="center">
-      //       <Authenticator hideDefault={false} amplifyConfig={awsconfig} theme={myTheme}>
-      //         <InternalApp authState={this.props.authState} onStateChange={this.props.onStateChange} />
-      //       </Authenticator>
-      //     </div>
-      //   </header>
-      // </div>
-      <div className="center">
-        <AmplifyAuthenticator>
-          <div>
+      <Router>
+         <AmplifyAuthenticator>
           <AmplifySignOut />
-          <InternalApp authState={this.props.authState} onStateChange={this.props.onStateChange} />
-          </div>
+          <NavigationBar />
+          <Container>
+            <Row>
+              <Col lg={12} style={marginTop}>
+              <Switch>
+                <Route path="/add" exact component={AddBug} />
+                <Route path="/table" exact component={BugTable} />
+              </Switch>
+              </Col>
+            </Row>
+          </Container>
+          {/* <InternalApp /> */}
+          <Footer />
         </AmplifyAuthenticator>
-      </div>
+      </Router>
     );
   }
 

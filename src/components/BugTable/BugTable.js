@@ -1,24 +1,34 @@
 import React, { Component } from 'react'
 import classes from './BugTable.module.css';
+import { Card, Table } from 'react-bootstrap';
 
 class BugTable extends Component {
 	render() {
 		return (
-			<div>
-				<h3>Bug Table Component</h3>
-				<table className={classes.center}>
-					<tbody>
+			<Card className="border border-dark bg-dark text-white">
+				<Card.Header>Bug Table</Card.Header>
+				<Card.Body>
+					<Table bordered hover striped variant="dark">
+					<thead>
 						<tr>
-							<th>
-								Bugs Header
-							</th>
+							<th>#</th>
+							<th>Decription</th>
+							<th>Created</th>
+							<th>Reporter</th>
+							<th>Due Date</th>
+							<th>Status</th>
+							<th>Severity</th>
+							<th>Reproducable?</th>
 						</tr>
-						<tr>Bug 1</tr>
-						<tr>Bug 2</tr>
-						<tr>Bug 3</tr>
+					</thead>
+					<tbody>
+						<tr align="center">
+							<td colSpan="8">No Bugs to fix</td>
+						</tr>
 					</tbody>
-				</table>
-			</div>
+					</Table>
+				</Card.Body>
+			</Card>
 		)
 	}
 }
