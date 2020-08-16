@@ -5,7 +5,7 @@ import awsconfig from './aws-exports';
 import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import InternalApp from './components/authentication/InternalApp/InternalApp';
+//import InternalApp from './components/authentication/InternalApp/InternalApp';
 import NavigationBar from './components/NavigationBar/NavigationBar';
 import Footer from './components/Footer/Footer';
 import AddBug from './components/AddBug/AddBug';

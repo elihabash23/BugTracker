@@ -1,12 +1,23 @@
 import React, { Component } from 'react'
-import classes from './BugTable.module.css';
+//import classes from './BugTable.module.css';
 import { Card, Table } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList } from '@fortawesome/free-solid-svg-icons';
 
 class BugTable extends Component {
+
+	componentDidMount() {
+		this.fetchData();
+	}
+
+	fetchData = () => {
+		
+	}
+
 	render() {
 		return (
 			<Card className="border border-dark bg-dark text-white">
-				<Card.Header>Bug Table</Card.Header>
+				<Card.Header><FontAwesomeIcon icon={faList}></FontAwesomeIcon> Bug Table</Card.Header>
 				<Card.Body>
 					<Table bordered hover striped variant="dark">
 					<thead>

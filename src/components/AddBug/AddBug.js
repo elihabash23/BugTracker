@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Form, Button, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 class AddBug extends Component {
 
@@ -31,7 +33,7 @@ class AddBug extends Component {
 	render() {
 		return (
 			<Card className="border border-dark bg-dark text-white">
-				<Card.Header>Add Bug</Card.Header>
+				<Card.Header><FontAwesomeIcon icon={faPlusSquare}></FontAwesomeIcon> Add Bug</Card.Header>
 					<Form onSubmit={this.submitBug} id="BugFormId">
 						<Card.Body>
 							<Form.Group controlId="formGridDescription">
@@ -116,7 +118,7 @@ class AddBug extends Component {
 					</Form>
 				<Card.Footer style={{"textAlign": "right"}}>
 						<Button variant="success" type="submit" onClick={this.submitBug}>
-							Submit
+							<FontAwesomeIcon icon={faSave}></FontAwesomeIcon> Submit
 						</Button>
 					</Card.Footer>
 			</Card>
