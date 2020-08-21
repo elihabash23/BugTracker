@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import { Card, Form, Button, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import Auth, { API, graphqlOperation } from 'aws-amplify';
+import awsconfig from '../../aws-exports';
+import * as mutations from '../../graphql/mutations';
+
+Auth.configure(awsconfig);
 
 class AddBug extends Component {
 
@@ -14,13 +19,28 @@ class AddBug extends Component {
 			due: "",
 			reporter: "",
 			status: "",
-			severity: ""
+			severity: "",
+			reproducable: false
 		}
 	}
 	
 	submitBug = (e) => {
-		alert(this.state.description);
 		e.preventDefault();
+		console.log(this.state.description + " " + this.state.created);
+		var createdDate = new Date(this.state.created);
+		var dueDate = new Date(this.state.due);
+		const bug = {
+			description: this.state.description,
+			createdAt: createdDate,
+			dueDate: dueDate,
+			name: this.state.reporter,
+			status: this.state.status,
+			severity: this.state.severity,
+			Reproducable: this.state.reproducable
+		}
+		const newBug = API.graphql(graphqlOperation(mutations.createBug, {input: bug}));
+		console.log(bug);
+		
 	}
 
 	bugChange = (e) => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Auth from 'aws-amplify';
 import awsconfig from './aws-exports';
-import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import NavigationBar from './components/NavigationBar/NavigationBar';
@@ -22,7 +22,6 @@ class App extends Component {
     return (
       <Router>
          <AmplifyAuthenticator>
-          <AmplifySignOut />
           <NavigationBar />
           <Container>
             <Row>

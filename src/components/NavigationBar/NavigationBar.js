@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { AmplifySignOut } from '@aws-amplify/ui-react'
 
 class NavigationBar extends Component {
 	render() {
@@ -20,6 +21,9 @@ class NavigationBar extends Component {
 				<Form inline>
 					<FormControl type="text" placeholder="Search" className="mr-sm-2" />
 					<Button variant="outline-info">Search</Button>
+					<Button variant="outline-info">	
+						<AmplifySignOut />
+					</Button>	
 				</Form>
 			</Navbar>
 		)
