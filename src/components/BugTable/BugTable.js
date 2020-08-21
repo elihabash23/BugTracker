@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
-//import classes from './BugTable.module.css';
+import { API, graphqlOperation } from 'aws-amplify';
+import awsconfig from '../../aws-exports';
 import { Card, Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from '@fortawesome/free-solid-svg-icons';
+import * as queries from '../../graphql/queries';
+API.configure(awsconfig);
 
 class BugTable extends Component {
 
 	componentDidMount() {
-		this.fetchData();
+		//this.fetchData();
 	}
 
 	fetchData = () => {
-		
+		const allBugs = API.graphql(graphqlOperation(queries.listBugs));
+		console.log(allBugs);
 	}
 
 	render() {

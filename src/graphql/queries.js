@@ -8,6 +8,10 @@ export const getBug = /* GraphQL */ `
       name
       description
       createdAt
+      dueDate
+      severity
+      status
+      Reproducable
       updatedAt
     }
   }
@@ -24,6 +28,10 @@ export const listBugs = /* GraphQL */ `
         name
         description
         createdAt
+        dueDate
+        severity
+        status
+        Reproducable
         updatedAt
       }
       nextToken

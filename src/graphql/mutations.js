@@ -11,6 +11,10 @@ export const createBug = /* GraphQL */ `
       name
       description
       createdAt
+      dueDate
+      severity
+      status
+      Reproducable
       updatedAt
     }
   }
@@ -25,6 +29,10 @@ export const updateBug = /* GraphQL */ `
       name
       description
       createdAt
+      dueDate
+      severity
+      status
+      Reproducable
       updatedAt
     }
   }
@@ -39,6 +47,10 @@ export const deleteBug = /* GraphQL */ `
       name
       description
       createdAt
+      dueDate
+      severity
+      status
+      Reproducable
       updatedAt
     }
   }

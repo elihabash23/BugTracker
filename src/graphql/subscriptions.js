@@ -8,6 +8,10 @@ export const onCreateBug = /* GraphQL */ `
       name
       description
       createdAt
+      dueDate
+      severity
+      status
+      Reproducable
       updatedAt
     }
   }
@@ -19,6 +23,10 @@ export const onUpdateBug = /* GraphQL */ `
       name
       description
       createdAt
+      dueDate
+      severity
+      status
+      Reproducable
       updatedAt
     }
   }
@@ -30,6 +38,10 @@ export const onDeleteBug = /* GraphQL */ `
       name
       description
       createdAt
+      dueDate
+      severity
+      status
+      Reproducable
       updatedAt
     }
   }

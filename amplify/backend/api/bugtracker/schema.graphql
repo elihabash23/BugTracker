@@ -1,10 +1,10 @@
 type Bug @model {
   id: ID!
   name: String!
-  description: String
-  createdAt: AWSDateTime
-  dueDate: AWSDateTime
-  severity: String
-  status: String
-  Reproducable: Boolean
+  description: String!
+  createdAt: AWSDateTime!
+  dueDate: AWSDateTime!
+  severity: String!
+  status: String!
+  Reproducable: Boolean!
 }
