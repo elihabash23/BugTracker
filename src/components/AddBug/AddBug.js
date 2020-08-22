@@ -30,7 +30,8 @@ class AddBug extends Component {
 	
 	submitBug = (e) => {
 		e.preventDefault();
-		console.log(this.state.description + " " + this.state.created);
+		//console.log(this.state.description + " " + this.state.created);
+		//console.log(typeof this.state.created);
 		var createdDate = new Date(this.state.created);
 		var dueDate = new Date(this.state.due);
 		const bug = {
@@ -42,6 +43,7 @@ class AddBug extends Component {
 			severity: this.state.severity,
 			Reproducable: this.state.reproducable
 		}
+		// eslint-disable-next-line no-unused-vars
 		const newBug = API.graphql(graphqlOperation(mutations.createBug, {input: bug}))
 			.then(response => {
 				if (response.data != null) {

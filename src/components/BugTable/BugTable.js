@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { API, graphqlOperation } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
-import { Card, Table, ButtonGroup, Button } from 'react-bootstrap';
+import { Card, Table } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faList } from '@fortawesome/free-solid-svg-icons';
 import * as queries from '../../graphql/queries';
+import BugTableItem from '../BugTableItem/BugTableItem';
+
 API.configure(awsconfig);
 
 class BugTable extends Component {
@@ -21,9 +23,11 @@ class BugTable extends Component {
 	}
 
 	fetchData = () => {
+		// eslint-disable-next-line no-unused-vars
 		const allBugs = API.graphql(graphqlOperation(queries.listBugs))
 		.then(bug => {
 			this.setState({ bugs: bug.data.listBugs.items});
+			console.log(typeof this.state.bugs[0].createdAt);
 			//console.log(bug.data.listBugs.items);
 		})
 	}
@@ -54,24 +58,18 @@ class BugTable extends Component {
 								<td colSpan="9">No bugs to fix</td>
 							</tr> :
 							this.state.bugs.map((bug, i) => (
-								<tr key={i}>
-									<td>{i+1}</td>
-									<td>{bug.description}</td>
-									<td>{bug.createdAt}</td>
-									<td>{bug.name}</td>
-									<td>{bug.dueDate}</td>
-									<td>{bug.status}</td>
-									<td>{bug.severity}</td>
-									<td>{bug.reproducable}</td>
-									<td>
-										<ButtonGroup>
-											<Button size="sm" variant="outline-primary"><FontAwesomeIcon icon={faEdit} /></Button>
-											<Button size="sm" variant="outline-danger"><FontAwesomeIcon icon={faTrash} /></Button>
-										</ButtonGroup>
-									</td>
-								</tr>
+								<BugTableItem
+									 key={i+1}
+									 id={i+1}
+									 description={bug.description}
+									 createdAt={bug.createdAt}
+									 name={bug.name}
+									 dueDate={bug.dueDate}
+									 status={bug.status}
+									 severity={bug.severity}
+									 reproducable={bug.reproducable}
+									 />
 							))
-
 						}
 						
 					</tbody>
