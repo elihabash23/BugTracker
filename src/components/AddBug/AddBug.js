@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Card, Form, Button, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faPlusSquare, faUndo } from '@fortawesome/free-solid-svg-icons';
 import Auth, { API, graphqlOperation } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 import * as mutations from '../../graphql/mutations';
+import MyToast from '../../components/MyToast/MyToast';
 
 Auth.configure(awsconfig);
 
@@ -13,7 +14,11 @@ class AddBug extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
+		this.state = this.initialState;
+		this.state.show = false;
+	}
+
+		initialState = {
 			description: "",
 			created: "",
 			due: "",
@@ -22,7 +27,6 @@ class AddBug extends Component {
 			severity: "",
 			reproducable: false
 		}
-	}
 	
 	submitBug = (e) => {
 		e.preventDefault();
@@ -38,9 +42,21 @@ class AddBug extends Component {
 			severity: this.state.severity,
 			Reproducable: this.state.reproducable
 		}
-		const newBug = API.graphql(graphqlOperation(mutations.createBug, {input: bug}));
-		console.log(bug);
-		
+		const newBug = API.graphql(graphqlOperation(mutations.createBug, {input: bug}))
+			.then(response => {
+				if (response.data != null) {
+					this.setState({"show": true});
+					setTimeout(() => this.setState({"show": false}), 3000);
+				} else {
+					this.setState({"show": false})
+				}
+			});
+		this.setState(this.initialState);
+	}
+
+	resetBug = (e) => {
+		e.preventDefault();
+		this.setState(() => this.initialState);
 	}
 
 	bugChange = (e) => {
@@ -52,13 +68,17 @@ class AddBug extends Component {
 
 	render() {
 		return (
-			<Card className="border border-dark bg-dark text-white">
+			<div>
+				<div style={{"display": this.state.show ? "block": "none"}}>
+					<MyToast children={{show: this.state.show, message: "Book Saved Successfully"}}/>
+				</div>
+				<Card className="border border-dark bg-dark text-white">
 				<Card.Header><FontAwesomeIcon icon={faPlusSquare}></FontAwesomeIcon> Add Bug</Card.Header>
 					<Form onSubmit={this.submitBug} id="BugFormId">
 						<Card.Body>
 							<Form.Group controlId="formGridDescription">
 								<Form.Label>Description</Form.Label>
-								<Form.Control required
+								<Form.Control required autoComplete="off"
 									type="text" name="description"
 									placeholder="Description"
 									value={this.state.description}
@@ -137,11 +157,15 @@ class AddBug extends Component {
 						</Card.Body>
 					</Form>
 				<Card.Footer style={{"textAlign": "right"}}>
-						<Button variant="success" type="submit" onClick={this.submitBug}>
+						<Button size="sm" variant="success" type="submit" onClick={this.submitBug}>
 							<FontAwesomeIcon icon={faSave}></FontAwesomeIcon> Submit
+						</Button>{" "}
+						<Button size="sm" variant="info" type="reset" onClick={this.resetBug}>
+							<FontAwesomeIcon icon={faUndo}></FontAwesomeIcon> Reset
 						</Button>
-					</Card.Footer>
+				</Card.Footer>
 			</Card>
+			</div>
 		)
 	}
 }
