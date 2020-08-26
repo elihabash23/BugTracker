@@ -12,8 +12,8 @@ function MyToast(props) {
 
 	return (
 		<div style={props.children.show ? toastCss : null}>
-			<Toast className={"border border-success bg-success text-white"} show={props.children.show}>
-				<Toast.Header className={"bg-success text-white"} closeButton={false}>
+			<Toast className={`border text-white ${props.children.type === "success" ? "border-success bg-success" : "border-danger bg-danger"}`} show={props.children.show}>
+				<Toast.Header className={`text-white ${props.children.type === "success" ? "bg-success" : "bg-danger"}`} closeButton={false}>
 					<strong className="mr-auto">Success</strong>
 				</Toast.Header>
 				<Toast.Body>
