@@ -2,12 +2,7 @@ import React from 'react'
 import { ButtonGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { API, graphqlOperation} from 'aws-amplify';
-import awsconfig from '../../aws-exports';
-import * as mutations from '../../graphql/mutations';
 import { Link } from 'react-router-dom';
-
-API.configure(awsconfig);
 
 function BugTableItem(props) {
 	const createdDate = new Date(Date.parse(props.createdAt));

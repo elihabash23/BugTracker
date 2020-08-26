@@ -11,13 +11,13 @@ function MyToast(props) {
 	}
 
 	return (
-		<div style={props.children.show ? toastCss : null}>
-			<Toast className={`border text-white ${props.children.type === "success" ? "border-success bg-success" : "border-danger bg-danger"}`} show={props.children.show}>
-				<Toast.Header className={`text-white ${props.children.type === "success" ? "bg-success" : "bg-danger"}`} closeButton={false}>
+		<div style={props.show ? toastCss : null}>
+			<Toast className={`border text-white ${props.type === "success" ? "border-success bg-success" : "border-danger bg-danger"}`} show={props.show}>
+				<Toast.Header className={`text-white ${props.type === "success" ? "bg-success" : "bg-danger"}`} closeButton={false}>
 					<strong className="mr-auto">Success</strong>
 				</Toast.Header>
 				<Toast.Body>
-					{props.children.message}
+					{props.message}
 				</Toast.Body>
 			</Toast>
 		</div>

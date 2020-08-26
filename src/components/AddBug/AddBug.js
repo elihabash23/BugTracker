@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Card, Form, Button, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faPlusSquare, faUndo } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faPlusSquare, faUndo, faList, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Auth, { API, graphqlOperation } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 import * as mutations from '../../graphql/mutations';
+import * as queries from '../../graphql/queries';
 import MyToast from '../../components/MyToast/MyToast';
 
 Auth.configure(awsconfig);
@@ -18,15 +19,46 @@ class AddBug extends Component {
 		this.state.show = false;
 	}
 
-		initialState = {
-			description: "",
-			created: "",
-			due: "",
-			reporter: "",
-			status: "",
-			severity: "",
-			reproducable: false
+	initialState = {
+		id: "",
+		description: "",
+		created: "",
+		due: "",
+		reporter: "",
+		status: "",
+		severity: "",
+		reproducable: false
+	}
+
+	componentDidMount() {
+		const bugId = this.props.match.params.id;
+		if (bugId) {
+			this.findBugById(bugId);
 		}
+	}
+
+	findBugById = (bugId) => {
+		if (bugId) {
+			API.graphql(graphqlOperation(queries.getBug, {id: bugId}))
+			.then(response => {
+				if (response.data != null) {
+					this.setState({
+						id: response.data.getBug.id,
+						description: response.data.getBug.description,
+						created: new Date(response.data.getBug.created),
+						due: response.data.getBug.due,
+						reporter: response.data.getBug.reporter,
+						status: response.data.getBug.status,
+						severity: response.data.getBug.severity,
+						reproducable: response.data.getBug.reproducable
+					})
+					console.log(response.data)
+				}
+			}).catch(error => {
+				console.log(error);
+			})
+		}
+	}
 	
 	submitBug = (e) => {
 		e.preventDefault();
@@ -61,6 +93,11 @@ class AddBug extends Component {
 		this.setState(() => this.initialState);
 	}
 
+	updateBug = (e) => {
+		e.preventDefault();
+		alert("updateBug");
+	}
+
 	bugChange = (e) => {
 		e.preventDefault();
 		this.setState({
@@ -68,14 +105,21 @@ class AddBug extends Component {
 		})
 	}
 
+	listBugs = (e) => {
+		e.preventDefault();
+		return this.props.history.push('/table');
+	}
+
 	render() {
 		return (
 			<div>
 				<div style={{"display": this.state.show ? "block": "none"}}>
-					<MyToast children={{show: this.state.show, message: "Bug Saved Successfully", type: "success"}}/>
+					<MyToast show={this.state.show} message={"Bug Saved Successfully"} type={"success"}/>
 				</div>
 				<Card className="border border-dark bg-dark text-white">
-				<Card.Header><FontAwesomeIcon icon={faPlusSquare}></FontAwesomeIcon> Add Bug</Card.Header>
+				<Card.Header>
+					<FontAwesomeIcon icon={this.state.id ? faEdit : faPlusSquare}></FontAwesomeIcon> {this.state.id ? "Update Bug" : "Add Bug"}
+				</Card.Header>
 					<Form onSubmit={this.submitBug} id="BugFormId">
 						<Card.Body>
 							<Form.Group controlId="formGridDescription">
@@ -159,11 +203,14 @@ class AddBug extends Component {
 						</Card.Body>
 					</Form>
 				<Card.Footer style={{"textAlign": "right"}}>
-						<Button size="sm" variant="success" type="submit" onClick={this.submitBug}>
-							<FontAwesomeIcon icon={faSave}></FontAwesomeIcon> Submit
+						<Button size="sm" variant="success" type="submit" onClick={this.state.id ? this.updateBug : this.submitBug}>
+							<FontAwesomeIcon icon={faSave}></FontAwesomeIcon> {this.state.id ? "Update" : "Save "}
 						</Button>{" "}
 						<Button size="sm" variant="info" type="reset" onClick={this.resetBug}>
 							<FontAwesomeIcon icon={faUndo}></FontAwesomeIcon> Reset
+						</Button>{" "}
+						<Button size="sm" variant="info" type="button" onClick={this.listBugs}>
+							<FontAwesomeIcon icon={faList}></FontAwesomeIcon> Bug Table
 						</Button>
 				</Card.Footer>
 			</Card>

@@ -28,6 +28,7 @@ class App extends Component {
               <Col lg={12} style={marginTop}>
               <Switch>
                 <Route path="/add" exact component={AddBug} />
+                <Route path="/edit/:id" exact component={AddBug} />
                 <Route path="/table" exact component={BugTable} />
               </Switch>
               </Col>
