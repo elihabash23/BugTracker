@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Form, Button, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave, faPlusSquare, faUndo, faList, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faPlusSquare, faUndo, faList, faEdit, faStar } from '@fortawesome/free-solid-svg-icons';
 import Auth, { API, graphqlOperation } from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 import * as mutations from '../../graphql/mutations';
@@ -52,7 +52,7 @@ class AddBug extends Component {
 						severity: response.data.getBug.severity,
 						reproducable: response.data.getBug.reproducable
 					})
-					console.log(response.data)
+					//console.log(response.data)
 				}
 			}).catch(error => {
 				console.log(error);
@@ -79,13 +79,19 @@ class AddBug extends Component {
 		const newBug = API.graphql(graphqlOperation(mutations.createBug, {input: bug}))
 			.then(response => {
 				if (response.data != null) {
-					this.setState({"show": true});
+					this.setState({"show": true, method: "post"});
 					setTimeout(() => this.setState({"show": false}), 3000);
 				} else {
 					this.setState({"show": false})
 				}
 			});
 		this.setState(this.initialState);
+	}
+
+	//Debugging purposes
+	showState = (e) => {
+		e.preventDefault();
+		console.log(this.state);
 	}
 
 	resetBug = (e) => {
@@ -95,7 +101,32 @@ class AddBug extends Component {
 
 	updateBug = (e) => {
 		e.preventDefault();
-		alert("updateBug");
+		var createdDate = new Date(this.state.created);
+		var dueDate = new Date(this.state.due);
+		const bug = {
+			id: this.state.id,
+			description: this.state.description,
+			createdAt: createdDate,
+			dueDate: dueDate,
+			name: this.state.reporter,
+			status: this.state.status,
+			severity: this.state.severity,
+			Reproducable: this.state.reproducable
+		}
+		API.graphql(graphqlOperation(mutations.updateBug, {input: bug}))
+		.then(response => {
+			if (response.data != null) {
+				this.setState({ show: true, method: "put"});
+				setTimeout(() => this.setState({ show: false}), 3000);
+				setTimeout(() => this.listBugs(), 3000);
+			} else {
+				this.setState({ show: false });
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+
+		this.setState(this.initialState);
 	}
 
 	bugChange = (e) => {
@@ -105,8 +136,7 @@ class AddBug extends Component {
 		})
 	}
 
-	listBugs = (e) => {
-		e.preventDefault();
+	listBugs = () => {
 		return this.props.history.push('/table');
 	}
 
@@ -114,7 +144,10 @@ class AddBug extends Component {
 		return (
 			<div>
 				<div style={{"display": this.state.show ? "block": "none"}}>
-					<MyToast show={this.state.show} message={"Bug Saved Successfully"} type={"success"}/>
+					<MyToast show={this.state.show} 
+								message={this.state.method === "put" ? "Bug Updated Successfully" : "Bug Saved Successfully"} 
+								type={"primary"}
+					/>
 				</div>
 				<Card className="border border-dark bg-dark text-white">
 				<Card.Header>
@@ -211,6 +244,9 @@ class AddBug extends Component {
 						</Button>{" "}
 						<Button size="sm" variant="info" type="button" onClick={this.listBugs}>
 							<FontAwesomeIcon icon={faList}></FontAwesomeIcon> Bug Table
+						</Button>{" "}
+						<Button size="sm" variant="info" type="button" onClick={this.showState}>
+							<FontAwesomeIcon icon={faStar}></FontAwesomeIcon> Show State
 						</Button>
 				</Card.Footer>
 			</Card>
