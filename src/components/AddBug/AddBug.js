@@ -146,7 +146,7 @@ class AddBug extends Component {
 				<div style={{"display": this.state.show ? "block": "none"}}>
 					<MyToast show={this.state.show} 
 								message={this.state.method === "put" ? "Bug Updated Successfully" : "Bug Saved Successfully"} 
-								type={"primary"}
+								type={this.state.method === "put" ? "primary" : "success"}
 					/>
 				</div>
 				<Card className="border border-dark bg-dark text-white">
