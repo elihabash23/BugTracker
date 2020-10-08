@@ -7,6 +7,7 @@ import awsconfig from '../../aws-exports';
 import * as mutations from '../../graphql/mutations';
 import * as queries from '../../graphql/queries';
 import MyToast from '../../components/MyToast/MyToast';
+import moment from 'moment';
 
 Auth.configure(awsconfig);
 
@@ -45,8 +46,8 @@ class AddBug extends Component {
 					this.setState({
 						id: response.data.getBug.id,
 						description: response.data.getBug.description,
-						created: new Date(response.data.getBug.created),
-						due: response.data.getBug.due,
+						created: moment(response.data.getBug.created),
+						due: moment(response.data.getBug.due),
 						reporter: response.data.getBug.reporter,
 						status: response.data.getBug.status,
 						severity: response.data.getBug.severity,

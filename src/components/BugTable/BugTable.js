@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
+import moment from 'moment';
 import BugTableItem from '../BugTableItem/BugTableItem';
 import MyToast from '../MyToast/MyToast';
 
@@ -30,7 +31,7 @@ class BugTable extends Component {
 		.then(bug => {
 			this.setState({ bugs: bug.data.listBugs.items});
 			//console.log(typeof this.state.bugs[0].createdAt);
-			//console.log(bug.data.listBugs.items);
+			console.log(bug.data.listBugs.items);
 		})
 	}
 
@@ -87,7 +88,7 @@ class BugTable extends Component {
 									 description={bug.description}
 									 createdAt={bug.createdAt}
 									 name={bug.name}
-									 dueDate={bug.dueDate}
+									 dueDate={moment().format(bug.dueDate)}
 									 status={bug.status}
 									 severity={bug.severity}
 									 reproducable={bug.reproducable}

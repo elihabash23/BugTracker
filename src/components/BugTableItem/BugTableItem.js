@@ -15,7 +15,7 @@ function BugTableItem(props) {
 			<td>{props.description}</td>
 			<td>{createdDate.getMonth()+1 + "/" + (createdDate.getDate()+1) + "/" + createdDate.getFullYear()}</td>
 			<td>{props.name}</td>
-			<td>{dueDate.getMonth()+1 + "/" + (dueDate.getDate()+1) + "/" + dueDate.getFullYear()}</td>
+			<td>{dueDate.getMonth()+1 + "/" + (dueDate.getDate()) + "/" + dueDate.getFullYear()}</td>
 			<td>{props.status}</td>
 			<td>{props.severity}</td>
 			<td>{props.reproducable}</td>
